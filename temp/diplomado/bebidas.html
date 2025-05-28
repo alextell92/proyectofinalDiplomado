@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bebidas Categoria</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .view-title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .widget-label {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+
+    .top-bar button {
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .list-container {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .drink-item {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .drink-image {
+      width: 80px;
+      height: 80px;
+      background: #ddd;
+      margin-right: 20px;
+    }
+
+    .drink-details {
+      flex: 1;
+    }
+
+    .drink-name {
+      font-weight: bold;
+      margin: 0 0 5px;
+    }
+
+    .drink-price {
+      color: #009688;
+      margin: 0 0 5px;
+    }
+
+    .drink-description {
+      font-size: 14px;
+      color: #666;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="view-title">&lt;&lt;view&gt;&gt; BebidasCategoriaView</div>
+  <div class="widget-label">&lt;&lt;bebidaswidget&gt;&gt; AppBar (Cócteles)</div>
+
+  <div class="top-bar">
+    <button>&larr; Volver</button>
+    <button>🔍 Buscar</button>
+  </div>
+
+  <div class="list-container">
+    <div class="drink-item">
+      <div class="drink-image"></div>
+      <div class="drink-details">
+        <p class="drink-name">Margarita</p>
+        <p class="drink-price">$120 MXN</p>
+        <p class="drink-description">Una deliciosa bebida a base de tequila, con limón y sal.</p>
+      </div>
+    </div>
+    <div class="drink-item">
+      <div class="drink-image"></div>
+      <div class="drink-details">
+        <p class="drink-name">Piña Colada</p>
+        <p class="drink-price">$105 MXN</p>
+        <p class="drink-description">Refrescante combinación de piña, coco y ron blanco.</p>
+      </div>
+    </div>
+    <div class="drink-item">
+      <div class="drink-image"></div>
+      <div class="drink-details">
+        <p class="drink-name">Mojito</p>
+        <p class="drink-price">$110 MXN</p>
+        <p class="drink-description">Clásico cubano con menta, lima, azúcar y ron.</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

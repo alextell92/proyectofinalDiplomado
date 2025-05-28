@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Comentarios View</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .view-container {
+      width: 90%;
+      max-width: 800px;
+      border: 1px solid #333366;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      background: white;
+    }
+
+    .view-title {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .comment-list {
+      border: 1px solid #333366;
+      padding: 20px;
+      background-color: #fff;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .comment {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 5px;
+      background-color: #f3f3f3;
+    }
+
+    .comment h4 {
+      margin: 0 0 5px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .comment p {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="view-container">
+    <div class="view-title">&lt;&lt;view&gt;&gt; ComentariosView</div>
+    <div class="comment-list">
+      <div class="comment">
+        <h4>Juan Pérez</h4>
+        <p>Excelente aplicación, muy útil y fácil de usar.</p>
+      </div>
+      <div class="comment">
+        <h4>María López</h4>
+        <p>Me encantó la interfaz y la rapidez. ¡Buen trabajo!</p>
+      </div>
+      <div class="comment">
+        <h4>Carlos Sánchez</h4>
+        <p>Sería genial poder filtrar los comentarios por fecha.</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuartos List View</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .view-container {
+      width: 100%;
+      max-width: 1000px;
+      border: 1px solid #333366;
+      padding: 30px;
+      background: #fff;
+    }
+
+    .view-title {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .filter-form {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+
+    .filter-form select {
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+
+    .datagrid {
+      border: 1px solid #333366;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      background-color: #fff;
+    }
+
+    .room-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      background-color: #f2f2f2;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .room-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      background-color: #ddd;
+    }
+
+    .room-card h4 {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="view-container">
+    <div class="view-title">&lt;&lt;view&gt;&gt; CuartosListView</div>
+
+    <div class="filter-form">
+      <select name="tipoCama">
+        <option value="">Tipo de Cama</option>
+        <option value="individual">Individual</option>
+        <option value="matrimonial">Matrimonial</option>
+        <option value="king">King</option>
+      </select>
+      <select name="maxHuespedes">
+        <option value="">Máx. Huéspedes</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3+">3 o más</option>
+      </select>
+      <select name="balcon">
+        <option value="">¿Balcón?</option>
+        <option value="sí">Sí</option>
+        <option value="no">No</option>
+      </select>
+    </div>
+
+    <div class="datagrid">
+      <div class="room-card">
+        <img src="https://via.placeholder.com/150" alt="Cuarto 1">
+        <h4>Cuarto 101</h4>
+      </div>
+      <div class="room-card">
+        <img src="https://via.placeholder.com/150" alt="Cuarto 2">
+        <h4>Cuarto 102</h4>
+      </div>
+      <div class="room-card">
+        <img src="https://via.placeholder.com/150" alt="Cuarto 3">
+        <h4>Cuarto 103</h4>
+      </div>
+      <div class="room-card">
+        <img src="https://via.placeholder.com/150" alt="Cuarto 4">
+        <h4>Cuarto 104</h4>
+      </div>
+      <div class="room-card">
+        <img src="https://via.placeholder.com/150" alt="Cuarto 5">
+        <h4>Cuarto 105</h4>
+      </div>
+      <div class="room-card">
+        <img src="https://via.placeholder.com/150" alt="Cuarto 6">
+        <h4>Cuarto 106</h4>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
