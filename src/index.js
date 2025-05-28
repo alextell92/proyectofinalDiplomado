@@ -3,6 +3,8 @@ import { renderClima } from "./clima";
 
 import { renderVisitantes } from "./visitantes";
 
+import {renderCuartos} from "./cuartos";
+
 export function renderHome() {
   const root = document.getElementById("root");
   if (!root) return;
@@ -23,7 +25,7 @@ export function renderHome() {
   const menuItems = [
     { text: "Clima", action: () => renderClima() },
     { text: "Bebidas", action: () => renderVisitantes() },
-    { text: "Habitaciones", action: () => alert("Habitaciones pendiente") },
+    { text: "Habitaciones", action: () => renderCuartos()},
     { text: "Intranet", action: () => alert("Intranet pendiente") },
   ];
 
