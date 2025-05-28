@@ -1,0 +1,59 @@
+   
+.visitantes-container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Título de la vista */
+.visitantes-title {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+/* Wrapper para scrolling horizontal en pantallas pequeñas */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* Tabla de visitantes */
+.visitantes-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Encabezados */
+.visitantes-table thead {
+  background: #2980b9;
+  color: #fff;
+}
+
+.visitantes-table th,
+.visitantes-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+/* Filas */
+.visitantes-table tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.visitantes-table tbody tr:hover {
+  background: #f1f7fd;
+}
+
+@media (max-width: 600px) {
+  .visitantes-table th,
+  .visitantes-table td {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+}

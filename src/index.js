@@ -50,12 +50,12 @@ export function renderHome() {
   banner.appendChild(span);
   main.appendChild(banner);
 
-  const footer = document.createElement("footer");
-  footer.textContent = "FOOTER";
+//   const footer = document.createElement("footer");
+//   footer.textContent = "FOOTER";
 
   homeView.appendChild(header);
   homeView.appendChild(main);
-  homeView.appendChild(footer);
+//   homeView.appendChild(footer);
   root.appendChild(homeView);
 }
 
