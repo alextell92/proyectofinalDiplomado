@@ -27,9 +27,17 @@ export function renderHome() {
 
   const header = document.createElement("header");
 
-  const logo = document.createElement("div");
-  logo.classList.add("logo");
-  logo.textContent = "LOGOTIPO";
+const logo = document.createElement("div");
+logo.classList.add("logo");
+
+const img = document.createElement("img");
+img.src = "./img/hotel.png";   
+img.alt = "Hotel";          
+img.classList.add("logoImg");    
+
+logo.appendChild(img);
+
+
 
   const nav = document.createElement("nav");
   const ul = document.createElement("ul");
@@ -63,8 +71,12 @@ export function renderHome() {
   const main = document.createElement("main");
   const banner = document.createElement("div");
   banner.classList.add("banner");
+
+
   const span = document.createElement("span");
   span.textContent = "Photo";
+
+
   banner.appendChild(span);
   main.appendChild(banner);
 

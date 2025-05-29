@@ -76,3 +76,15 @@ footer {
   text-align: center;
   padding: 1rem;
 }
+
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  height: 50px;   
+  width: auto;
+  max-width: 150px;
+}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import "./clima.css";
 
-const API_BASE = 'https://www.7timer.info/bin/api.pl';
+const API_KEY = 'c27c93ab9dbe74ae2c2173d3b80ba1c7'; 
 
 export function renderClima() {
   const root = document.getElementById("root");
@@ -9,27 +9,31 @@ export function renderClima() {
 
   root.innerHTML = "";
 
-  // Container
+  // Contenedor principal
   const climaView = document.createElement("div");
   climaView.classList.add("clima-view");
 
-  // Header con botón de regreso
+   
+
+  // Header 
   const header = document.createElement("header");
   const backBtn = document.createElement("button");
+  const h1 = document.createElement("h1");
+  h1.textContent = "Clima de Hoy";
+
   backBtn.textContent = "← Volver al Home";
   backBtn.addEventListener("click", () => {
     import("./index.js").then(module => module.renderHome());
   });
   header.appendChild(backBtn);
-
-  // Selector de ciudad
+  header.appendChild(h1);
+  // ciudad
   const cityLabel = document.createElement('label');
   cityLabel.textContent = 'Ciudad: ';
   const cityInput = document.createElement('input');
   cityInput.type = 'text';
-  cityInput.placeholder = 'e.g. London';
-  cityInput.value = 'London';
-  cityInput.style.marginRight = '0.5rem';
+  cityInput.placeholder = 'Guanajuato';
+  cityInput.value = 'Guanajuato'; //Por default
 
   const getBtn = document.createElement('button');
   getBtn.textContent = 'Obtener Clima';
@@ -40,10 +44,9 @@ export function renderClima() {
   controls.append(cityLabel, cityInput, getBtn);
 
   // Contenedor principal
-  const main = document.createElement("main");
-  const h1 = document.createElement("h1");
-  h1.textContent = "Clima de Hoy";
-  main.append(h1, controls);
+  const main = document.createElement('main');
+
+  main.append(controls);
 
   // Contenedor de resultados
   const resultContainer = document.createElement('div');
@@ -62,49 +65,41 @@ async function loadClima(city) {
   container.innerHTML = '<p>Cargando clima...</p>';
 
   try {
-    // Coordenadas simples para ejemplo; en producción usar geocoding
-    const coords = getCoordsForCity(city);
-    const params = new URLSearchParams({
-      product: 'civillight', // tipo de pronóstico
-      lat: coords.lat,
-      lon: coords.lon,
-      unit: 'metric',
-      output: 'json',
-      tzshift: '0'
-    });({
-      lat: coords.lat,
-      lon: coords.lon,
-      unit: 'metric',
-      output: 'json',
-      tzshift: '0'
-    });
+    // Construye la URL con query params
+    // const params = new URLSearchParams({
+    //   q: city,
+    //   appid: API_KEY,
+    //   units: 'metric',
+    //   lang: 'es'
+    // });
 
-    const url = `${API_BASE}?${params.toString()}`;
+    // console.log(params);
+    
+
+    // const url = `${API_BASE}?${params.toString()}`;
+   
+    const url =`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`
     const { data } = await axios.get(url);
 
-    // El primer periodo es el clima actual aproximado
-    const now = data.dataseries[0];
+
+    // Parseo de respuesta
+    const nombre = data.name;
+    const descripcion = data.weather[0].description;
+    const temp = data.main.temp;
+    const tempMin = data.main.temp_min;
+    const tempMax = data.main.temp_max;
+    const viento = data.wind.speed;
+    const humedad = data.main.humidity;
 
     container.innerHTML = `
-      <p><strong>Ciudad:</strong> ${city}</p>
-      <p><strong>Fecha:</strong> ${now.date}</p>
-      <p><strong>Tiempo:</strong> ${now.weather}</p>
-      <p><strong>Temperatura:</strong> Min ${now.temp2m.min}°C - Max ${now.temp2m.max}°C</p>
-      <p><strong>Viento:</strong> ${now.wind10m_max} m/s</p>
+      <p><strong>Ciudad:</strong> ${nombre}</p>
+      <p><strong>Tiempo:</strong> ${descripcion}</p>
+      <p><strong>Temperatura:</strong> ${temp.toFixed(1)}°C (min ${tempMin.toFixed(1)}°C / max ${tempMax.toFixed(1)}°C)</p>
+      <p><strong>Humedad:</strong> ${humedad}%</p>
+      <p><strong>Viento:</strong> ${viento} m/s</p>
     `;
   } catch (error) {
     console.error('Error al cargar clima:', error);
-    container.innerHTML = '<p class="error">No se pudo obtener el clima.</p>';
+    container.innerHTML = '<p class="error">No se pudo obtener el clima.Revisa la ciudad</p>';
   }
-}
-
-function getCoordsForCity(city) {
-  // Mapea algunas ciudades a coordenadas (ejemplo)
-  const map = {
-    "London": { lat: 51.5074, lon: -0.1278 },
-    "Mexico City": { lat: 19.4326, lon: -99.1332 },
-    "New York": { lat: 40.7128, lon: -74.0060 },
-    "Tokyo": { lat: 35.6895, lon: 139.6917 }
-  };
-  return map[city] || map['London'];
 }

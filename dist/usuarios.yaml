@@ -1,5 +1,8 @@
 usuarios:
   - usuario: admin
-    contraseña: 1234
+    contraseña: a1234
   - usuario: juan
     contraseña: abc123
+  - usuario: root
+    contraseña: b321
+

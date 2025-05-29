@@ -12,11 +12,20 @@ export async function renderCuartos() {
   const container = document.createElement("div");
   container.classList.add("view-container");
 
+
+    const header = document.createElement("header");
+
+  const backBtn = document.createElement("button");
+  backBtn.textContent = "← Regresar al inicio";
+  backBtn.addEventListener("click", () => renderHome());
+
+
+  
+
   // Título
   const title = document.createElement("h2");
   title.classList.add("view-title");
   title.textContent = "Lista de Cuartos";
-
   // Form filtros
   const form = document.createElement("div");
   form.classList.add("filter-form");
@@ -42,20 +51,26 @@ export async function renderCuartos() {
   `;
   form.append(selectCama, selectHuespedes, selectBalcon);
 
+  header.appendChild(backBtn);
+
+  
+  header.appendChild(form);
+  
+  header.appendChild(title);
+
+
+
+
   // Grid para habitaciones
   const datagrid = document.createElement("div");
   datagrid.classList.add("datagrid");
 
   // Back button
-  const backWrapper = document.createElement("div");
-  backWrapper.classList.add("back-button");
-  const backBtn = document.createElement("button");
-  backBtn.textContent = "← Regresar al inicio";
-  backBtn.addEventListener("click", () => renderHome());
-  backWrapper.appendChild(backBtn);
 
-  container.append(title, form, datagrid, backWrapper);
-  root.appendChild(container);
+
+  // container.append(header, datagrid);
+    root.appendChild(header);
+  root.appendChild(datagrid);
 
   // Carga de archivo YAML
   try {

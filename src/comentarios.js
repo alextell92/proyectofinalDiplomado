@@ -16,10 +16,7 @@ export async function renderComentarios() {
   const container = document.createElement("div");
   container.classList.add("view-container");
 
-  // Título de la vista
-  const title = document.createElement("h1");
-  title.classList.add("view-title");
-  title.textContent = "Comentarios";
+
 
   // Botón de regresar
   const backBtn = document.createElement("button");
@@ -29,13 +26,30 @@ export async function renderComentarios() {
     renderHome();
   });
 
+
+
+    // Header 
+  const header = document.createElement("header");
+  
+  const h1 = document.createElement("h1");
+  h1.textContent = "Comentarios";
+
+
+  header.appendChild(backBtn);
+  header.appendChild(h1);
+
+
+
+
   // Contenedor de comentarios
   const list = document.createElement("div");
   list.classList.add("comment-list");
   list.innerHTML = `<p>Cargando comentarios...</p>`;
 
-  container.append(title, backBtn, list);
-  root.appendChild(container);
+  // container.append(backBtn, list);
+  root.appendChild(header)
+  root.appendChild(list);
+
 
   try {
     const { data } = await axios.get(`${API_BASE}/comments`);
