@@ -1,9 +1,9 @@
 import axios from 'axios';
 import "./visitantes.css";
-import { renderHome } from "./index.js"; // Asegúrate de importar la vista de inicio
+import { renderHome } from "./index.js"; 
 
 const API_BASE = 'https://jsonplaceholder.typicode.com';
-const LIMIT = 20; // Límite de usuarios a mostrar
+const LIMIT = 20; 
 
 export async function renderVisitantes() {
   const root = document.getElementById("root");
@@ -14,7 +14,7 @@ export async function renderVisitantes() {
   const container = document.createElement("div");
   container.classList.add("visitantes-container");
 
-  // Título
+  // encabezado titulo
   const title = document.createElement("h2");
   title.classList.add("visitantes-title");
   title.textContent = "Visitantes Registrados";
@@ -37,7 +37,7 @@ export async function renderVisitantes() {
   thead.appendChild(headerRow);
   table.appendChild(thead);
 
-  // Cuerpo (cargando...)
+  // cargando
   const tbody = document.createElement("tbody");
   const loadingRow = document.createElement("tr");
   const loadingTd = document.createElement("td");
@@ -49,7 +49,7 @@ export async function renderVisitantes() {
   table.appendChild(tbody);
   tableWrapper.appendChild(table);
 
-  // Botón para regresar
+  // btn para regresar
   const backButton = document.createElement("button");
   backButton.textContent = "← Regresar al inicio";
   backButton.classList.add("back-button");
@@ -60,15 +60,14 @@ export async function renderVisitantes() {
   container.append(title, tableWrapper, backButton);
   root.appendChild(container);
 
-  // Petición a la API
+  // API personas
   try {
     const { data } = await axios.get(`${API_BASE}/users`);
     const users = data.slice(0, LIMIT);
 
-    // Limpia loading
+    
     tbody.innerHTML = '';
 
-    // Rellena filas
     users.forEach(user => {
       const row = document.createElement("tr");
       const { id, name, username, email, address } = user;

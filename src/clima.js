@@ -32,8 +32,8 @@ export function renderClima() {
   cityLabel.textContent = 'Ciudad: ';
   const cityInput = document.createElement('input');
   cityInput.type = 'text';
-  cityInput.placeholder = 'Guanajuato';
-  cityInput.value = 'Guanajuato'; //Por default
+  cityInput.placeholder = 'Guanajuato'; 
+  cityInput.value = 'Guanajuato'; 
 
   const getBtn = document.createElement('button');
   getBtn.textContent = 'Obtener Clima';
@@ -65,8 +65,7 @@ async function loadClima(city) {
   container.innerHTML = '<p>Cargando clima...</p>';
 
   try {
-    // Construye la URL con query params
-    // const params = new URLSearchParams({
+   
     //   q: city,
     //   appid: API_KEY,
     //   units: 'metric',

@@ -6,7 +6,7 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Título de la vista */
+/* titulo de la vista */
 .visitantes-title {
   text-align: center;
   font-size: 1.4rem;
@@ -14,7 +14,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Wrapper para scrolling horizontal en pantallas pequeñas */
 .table-wrapper {
   overflow-x: auto;
 }

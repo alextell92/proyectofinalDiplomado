@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { renderHome } from "./index.js"; // Ajusta la ruta según tu proyecto
+import { renderHome } from "./index.js";
 import "./comentarios.css";
 
 const API_BASE = 'https://jsonplaceholder.typicode.com';
-const LIMIT = 20; // Número máximo de comentarios a mostrar
+const LIMIT = 20; 
 
 export async function renderComentarios() {
   const root = document.getElementById("root");
   if (!root) return;
 
-  // Limpia contenido previo
+ 
   root.innerHTML = "";
 
   // Contenedor principal
@@ -18,7 +18,7 @@ export async function renderComentarios() {
 
 
 
-  // Botón de regresar
+  //  regresar
   const backBtn = document.createElement("button");
   backBtn.classList.add("back-button");
   backBtn.textContent = "← Regresar al inicio";

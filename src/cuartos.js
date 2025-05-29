@@ -1,6 +1,6 @@
 import jsyaml from 'js-yaml';
 import "./cuartos.css";
-import { renderHome } from "./index.js"; // Ajusta la ruta según tu proyecto
+import { renderHome } from "./index.js";
 
 export async function renderCuartos() {
   const root = document.getElementById("root");
@@ -65,8 +65,6 @@ export async function renderCuartos() {
   const datagrid = document.createElement("div");
   datagrid.classList.add("datagrid");
 
-  // Back button
-
 
   // container.append(header, datagrid);
     root.appendChild(header);
@@ -74,11 +72,11 @@ export async function renderCuartos() {
 
   // Carga de archivo YAML
   try {
-    const response = await fetch('/cuartos.yaml'); // Coloca rooms.yaml en tu carpeta public
+    const response = await fetch('/cuartos.yaml'); 
     const text = await response.text();
     const rooms = jsyaml.load(text);
 
-    // Función para filtrar y mostrar
+    // filtrar y mostrar
     const displayRooms = () => {
       datagrid.innerHTML = '';
       const tipo = selectCama.value;
@@ -106,12 +104,12 @@ export async function renderCuartos() {
       });
     };
 
-    // Listeners
+    // evento change
     selectCama.addEventListener('change', displayRooms);
     selectHuespedes.addEventListener('change', displayRooms);
     selectBalcon.addEventListener('change', displayRooms);
 
-    // Mostrar inicialmente
+  
     displayRooms();
   } catch (err) {
     console.error('Error cargando cuartos YAML:', err);

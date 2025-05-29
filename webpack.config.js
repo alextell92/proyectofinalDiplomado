@@ -21,12 +21,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/, // Archivos JavaScript
+        test: /\.js$/, 
         exclude: /node_modules/,
        use: {
           loader: "babel-loader",
           options: {
-            // forzar conversión de ESM a CommonJS y detectar sourceType automáticamente
+          
             presets: [
               [
                 "@babel/preset-env",
@@ -42,7 +42,7 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.s[ac]ss$/i, // Archivos SCSS/SASS
+        test: /\.s[ac]ss$/i, 
         use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
