@@ -47,3 +47,10 @@ body {
   color: #666;
   font-size: 14px;
 }
+
+.clima-controls {
+  margin: 1rem 0;
+}
+.clima-result p {
+  margin: 0.5rem 0;
+}

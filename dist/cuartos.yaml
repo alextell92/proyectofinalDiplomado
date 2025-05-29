@@ -1,0 +1,16 @@
+- numero: 101
+  cama: individual
+  huespedes: 1
+  balcon: true
+  image: "https://via.placeholder.com/150"
+- numero: 102
+  cama: matrimonial
+  huespedes: 2
+  balcon: false
+  image: "https://via.placeholder.com/150"
+- numero: 103
+  cama: king
+  huespedes: 2
+  balcon: true
+  image: "https://via.placeholder.com/150"
+# Agrega más habitaciones según necesites

@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+}
+.view-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.widget-label {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto 20px;
+}
+.top-bar button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+.contenedor{
+    background: rebeccapurple;
+}
+
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;      
+  gap: 1rem;           
+  justify-content: center;
+  padding: 1rem 0;
+  border: 1px solid;
+}
+
+.drink-card {
+ 
+  max-width: 180px;      
+  width: 100%;           
+  box-sizing: border-box;
+}
+.card-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.card-content {
+  padding: 0.5rem;
+  text-align: center;
+}
+.card-title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.detalle-bebida{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagenDetalle{
+    max-width: 180px;
+}
+
+.listaIngresdientes{
+    background-color: #666;
+     list-style: disc inside;
+  margin: 1rem 0;
+}
+

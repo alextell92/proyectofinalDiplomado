@@ -1,7 +1,11 @@
+import axios from 'axios';
 import "./visitantes.css";
 import { renderHome } from "./index.js"; // Asegúrate de importar la vista de inicio
 
-export function renderVisitantes() {
+const API_BASE = 'https://jsonplaceholder.typicode.com';
+const LIMIT = 20; // Límite de usuarios a mostrar
+
+export async function renderVisitantes() {
   const root = document.getElementById("root");
   if (!root) return;
 
@@ -10,50 +14,80 @@ export function renderVisitantes() {
   const container = document.createElement("div");
   container.classList.add("visitantes-container");
 
+  // Título
   const title = document.createElement("h2");
   title.classList.add("visitantes-title");
-  title.innerHTML = "&lt;&lt;view&gt;&gt; VisitantesView";
+  title.textContent = "Visitantes Registrados";
 
+  // Tabla
   const tableWrapper = document.createElement("div");
   tableWrapper.classList.add("table-wrapper");
 
   const table = document.createElement("table");
   table.classList.add("visitantes-table");
 
+  // Encabezado
   const thead = document.createElement("thead");
   const headerRow = document.createElement("tr");
-  ["ID", "Nombre", "Fecha Entrada", "Fecha Salida", "Habitación", "Status"].forEach(text => {
+  ["ID", "Nombre", "Usuario", "Email", "Ciudad"].forEach(text => {
     const th = document.createElement("th");
     th.textContent = text;
     headerRow.appendChild(th);
   });
   thead.appendChild(headerRow);
-
-  const tbody = document.createElement("tbody");
-  const row = document.createElement("tr");
-  ["001", "Juan Pérez", "2025-05-20", "2025-05-22", "101", "Activo"].forEach(text => {
-    const td = document.createElement("td");
-    td.textContent = text;
-    row.appendChild(td);
-  });
-  tbody.appendChild(row);
-
   table.appendChild(thead);
+
+  // Cuerpo (cargando...)
+  const tbody = document.createElement("tbody");
+  const loadingRow = document.createElement("tr");
+  const loadingTd = document.createElement("td");
+  loadingTd.setAttribute('colspan', '5');
+  loadingTd.textContent = "Cargando visitantes...";
+  loadingTd.classList.add('loading');
+  loadingRow.appendChild(loadingTd);
+  tbody.appendChild(loadingRow);
   table.appendChild(tbody);
   tableWrapper.appendChild(table);
 
   // Botón para regresar
   const backButton = document.createElement("button");
   backButton.textContent = "← Regresar al inicio";
-  backButton.style.marginTop = "2rem";
-  backButton.style.padding = "0.5rem 1rem";
-  backButton.style.cursor = "pointer";
+  backButton.classList.add("back-button");
   backButton.addEventListener("click", () => {
     renderHome();
   });
 
-  container.appendChild(title);
-  container.appendChild(tableWrapper);
-  container.appendChild(backButton);
+  container.append(title, tableWrapper, backButton);
   root.appendChild(container);
+
+  // Petición a la API
+  try {
+    const { data } = await axios.get(`${API_BASE}/users`);
+    const users = data.slice(0, LIMIT);
+
+    // Limpia loading
+    tbody.innerHTML = '';
+
+    // Rellena filas
+    users.forEach(user => {
+      const row = document.createElement("tr");
+      const { id, name, username, email, address } = user;
+      [id, name, username, email, address.city].forEach(value => {
+        const td = document.createElement("td");
+        td.textContent = value;
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Error al cargar visitantes:', error);
+    tbody.innerHTML = '';
+    const errRow = document.createElement('tr');
+    const errTd = document.createElement('td');
+    errTd.setAttribute('colspan', '5');
+    errTd.textContent = 'No se pudieron cargar los visitantes.';
+    errTd.classList.add('error');
+    errRow.appendChild(errTd);
+    tbody.appendChild(errRow);
+  }
 }

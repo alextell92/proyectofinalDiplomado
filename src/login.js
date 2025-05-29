@@ -1,21 +1,72 @@
-// src/login.js
-import template from "./login.html";
+import { renderIntranet } from "./intranet.js";
 import "./login.css";
-import config   from "./config.yaml";    // solo si sigues usando YAML
+import yaml from "js-yaml";
 
-console.log(config.titulo, config.descripcion);
+export function renderLogin() {
+  const root = document.getElementById("root");
+  if (!root) return;
+  root.innerHTML = "";
 
-// registra tu SW como antes…
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("./service-worker.js")
-      .then((reg) => console.log("SW Registrado", reg))
-      .catch((err) => console.log("SW no registrado", err));
+  const container = document.createElement("div");
+  container.classList.add("login-container");
+
+  const title = document.createElement("h2");
+  title.classList.add("login-title");
+  title.textContent = "Iniciar sesión";
+
+  const form = document.createElement("form");
+  form.classList.add("login-form");
+
+  const userLabel = document.createElement("label");
+  userLabel.textContent = "Usuario";
+  const userInput = document.createElement("input");
+  userInput.type = "text";
+
+  const passLabel = document.createElement("label");
+  passLabel.textContent = "Contraseña";
+  const passInput = document.createElement("input");
+  passInput.type = "password";
+
+  const submitBtn = document.createElement("button");
+  submitBtn.type = "submit";
+  submitBtn.textContent = "Iniciar sesión";
+
+  form.appendChild(userLabel);
+  form.appendChild(userInput);
+  form.appendChild(passLabel);
+  form.appendChild(passInput);
+  form.appendChild(submitBtn);
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const usuarioIngresado = userInput.value.trim();
+    const passIngresada = passInput.value.trim();
+
+    try {
+      const response = await fetch("usuarios.yaml");
+      const yamlText = await response.text();
+      const data = yaml.load(yamlText);
+
+      const usuarioValido = data.usuarios.find(
+        (u) => u.usuario === usuarioIngresado && u.contraseña === passIngresada
+      );
+console.log(usuarioIngresado);
+console.log(passIngresada)
+console.log(usuarioValido)
+
+
+      if (usuarioValido) {
+        renderIntranet();
+      } else {
+        alert("Credenciales incorrectas");
+      }
+    } catch (err) {
+      console.error("Error al cargar usuarios.yaml:", err);
+      alert("No se pudo validar la sesión.");
+    }
   });
+
+  container.appendChild(title);
+  container.appendChild(form);
+  root.appendChild(container);
 }
-
-// inyecta el HTML
-document.getElementById("root").innerHTML = template;
-
-// resto de tu lógica de filtros, sliders y canvas…

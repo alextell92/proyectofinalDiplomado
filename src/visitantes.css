@@ -57,3 +57,40 @@
     font-size: 0.85rem;
   }
 }
+
+
+
+/* Aqui comienza */
+
+.visitantes-container {
+  padding: 1rem;
+}
+.visitantes-title {
+  margin-bottom: 1rem;
+}
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+.visitantes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.visitantes-table th,
+.visitantes-table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+.loading {
+  text-align: center;
+  font-style: italic;
+}
+.error {
+  text-align: center;
+  color: red;
+}
+.back-button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}

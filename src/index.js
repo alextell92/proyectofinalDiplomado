@@ -5,6 +5,18 @@ import { renderVisitantes } from "./visitantes";
 
 import {renderCuartos} from "./cuartos";
 
+
+import { renderBebidasCategoria } from "./bebidas";
+
+
+import { renderComentarios } from "./comentarios";
+
+
+import { renderIntranet } from "./intranet";
+
+
+import { renderLogin } from "./login";
+
 export function renderHome() {
   const root = document.getElementById("root");
   if (!root) return;
@@ -24,9 +36,11 @@ export function renderHome() {
 
   const menuItems = [
     { text: "Clima", action: () => renderClima() },
-    { text: "Bebidas", action: () => renderVisitantes() },
+    { text: "Bebidas", action: () => renderBebidasCategoria() },
     { text: "Habitaciones", action: () => renderCuartos()},
-    { text: "Intranet", action: () => alert("Intranet pendiente") },
+     { text: "Comentarios", action: () => renderComentarios() },
+    { text: "Intranet", action: () =>renderLogin() },
+    // { text: "Intranet", action: () =>renderVisitantes() },
   ];
 
   menuItems.forEach(({ text, action }) => {
