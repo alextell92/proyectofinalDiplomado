@@ -1,45 +1,30 @@
-import axios from 'axios';
+import axios from "axios";
 import { renderHome } from "./index.js";
 import "./comentarios.css";
+import { renderIntranet } from "./intranet.js";
 
-const API_BASE = 'https://jsonplaceholder.typicode.com';
-const LIMIT = 20; 
+import { renderHeader } from "./header.js";
+
+const API_BASE = "https://jsonplaceholder.typicode.com";
+const LIMIT = 50;
 
 export async function renderComentarios() {
   const root = document.getElementById("root");
   if (!root) return;
 
- 
   root.innerHTML = "";
 
-  // Contenedor principal
-  const container = document.createElement("div");
-  container.classList.add("view-container");
-
-
-
-  //  regresar
-  const backBtn = document.createElement("button");
-  backBtn.classList.add("back-button");
-  backBtn.textContent = "← Regresar al inicio";
-  backBtn.addEventListener("click", () => {
-    renderHome();
+  renderHeader({
+    title: "Comentarios",
+    backButton: {
+      label: "← Volver a intranet",
+      action: () => {
+        import("./intranet.js")
+          .then((module) => module.renderIntranet())
+          .catch((err) => console.error("Error cargando intranet:", err));
+      },
+    },
   });
-
-
-
-    // Header 
-  const header = document.createElement("header");
-  
-  const h1 = document.createElement("h1");
-  h1.textContent = "Comentarios";
-
-
-  header.appendChild(backBtn);
-  header.appendChild(h1);
-
-
-
 
   // Contenedor de comentarios
   const list = document.createElement("div");
@@ -47,18 +32,17 @@ export async function renderComentarios() {
   list.innerHTML = `<p>Cargando comentarios...</p>`;
 
   // container.append(backBtn, list);
-  root.appendChild(header)
+  //root.appendChild(header)
   root.appendChild(list);
-
 
   try {
     const { data } = await axios.get(`${API_BASE}/comments`);
     const comments = data.slice(0, LIMIT);
 
-    list.innerHTML = '';
-    comments.forEach(comment => {
-      const card = document.createElement('div');
-      card.classList.add('comment-card');
+    list.innerHTML = "";
+    comments.forEach((comment) => {
+      const card = document.createElement("div");
+      card.classList.add("comment-card");
       card.innerHTML = `
         <h4 class="comment-name">${comment.name}</h4>
         <p class="comment-email">${comment.email}</p>
@@ -67,7 +51,8 @@ export async function renderComentarios() {
       list.appendChild(card);
     });
   } catch (error) {
-    console.error('Error al cargar comentarios:', error);
-    list.innerHTML = '<p class="error">No se pudieron cargar los comentarios.</p>';
+    console.error("Error al cargar comentarios:", error);
+    list.innerHTML =
+      '<p class="error">No se pudieron cargar los comentarios.</p>';
   }
 }

@@ -27,25 +27,32 @@ body {
   cursor: pointer;
 }
 
-
-.contenedor{
-    background: rebeccapurple;
+.contenedor {
+  background: rebeccapurple;
 }
-
 
 .card-container {
   display: flex;
-  flex-wrap: wrap;      
-  gap: 1rem;           
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 1rem;
   justify-content: center;
   padding: 1rem 0;
   border: 1px solid;
+  margin: 0 auto;
 }
 
 .drink-card {
- 
-  max-width: 180px;      
-  width: 100%;           
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 300px;
   box-sizing: border-box;
 }
 .card-image img {
@@ -62,20 +69,50 @@ body {
   margin: 0;
 }
 
-.detalle-bebida{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.detalle-bebida {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.imagenDetalle{
-    max-width: 180px;
+.imagenDetalle {
+  max-width: 180px;
 }
 
-.listaIngresdientes{
-    background-color: #666;
-     list-style: disc inside;
+.listaIngresdientes {
+  background-color: #666;
+  list-style: disc inside;
   margin: 1rem 0;
 }
 
+.back-button {
+  text-align: center;
+  margin-top: 20px;
+}
+.back-button button {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.contenedorFiltro {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.contenedorFiltro select {
+  padding: 10px;
+  width: 150px;
+  font-weight: bold;
+}
+
+.divInstrucciones {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 250px;
+}

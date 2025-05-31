@@ -37,7 +37,7 @@ export function renderLogin() {
   regresarBtn.type = "button";
   regresarBtn.textContent = "Regresar";
 
-  regresarBtn.textContent = "← Regresar al inicio";
+  regresarBtn.textContent = "Regresar al inicio";
   regresarBtn.addEventListener("click", () => renderHome());
 
   form.appendChild(userLabel);
@@ -48,7 +48,6 @@ export function renderLogin() {
   form.appendChild(regresarBtn);
 
   form.addEventListener("submit", async (e) => {
-   
     e.preventDefault();
     const usuarioIngresado = userInput.value.trim();
     const passIngresada = passInput.value.trim();

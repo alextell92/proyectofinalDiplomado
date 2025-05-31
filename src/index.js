@@ -3,17 +3,13 @@ import { renderClima } from "./clima";
 
 import { renderVisitantes } from "./visitantes";
 
-import {renderCuartos} from "./cuartos";
-
+import { renderCuartos } from "./cuartos";
 
 import { renderBebidasCategoria } from "./bebidas";
 
-
 import { renderComentarios } from "./comentarios";
 
-
 import { renderIntranet } from "./intranet";
-
 
 import { renderLogin } from "./login";
 
@@ -27,27 +23,36 @@ export function renderHome() {
 
   const header = document.createElement("header");
 
-const logo = document.createElement("div");
-logo.classList.add("logo");
+  const logo = document.createElement("div");
+  logo.classList.add("logo");
 
-const img = document.createElement("img");
-img.src = "./img/hotel.png";   
-img.alt = "Hotel";          
-img.classList.add("logoImg");    
+  const img = document.createElement("img");
+  img.src = "./img/hotel.png";
+  img.alt = "Hotel";
+  img.classList.add("logoImg");
 
-logo.appendChild(img);
-
-
+  logo.appendChild(img);
 
   const nav = document.createElement("nav");
   const ul = document.createElement("ul");
 
+  // 2) Añade el botón hamburguesa ANTES del <nav>:
+  const toggleBtn = document.createElement("button");
+  toggleBtn.classList.add("menu-toggle");
+  toggleBtn.setAttribute("aria-label", "Menú");
+  toggleBtn.innerHTML = "☰"; // o un ícono SVG si prefieres
+
+  // 3) Cuando cliquen el toggle, alternamos la clase “open” en el <nav>
+  toggleBtn.addEventListener("click", () => {
+    nav.classList.toggle("open");
+  });
+
   const menuItems = [
     { text: "Clima", action: () => renderClima() },
     { text: "Bebidas", action: () => renderBebidasCategoria() },
-    { text: "Habitaciones", action: () => renderCuartos()},
-     { text: "Comentarios", action: () => renderComentarios() },
-    { text: "Intranet", action: () =>renderLogin() },
+    { text: "Habitaciones", action: () => renderCuartos() },
+    //  { text: "Comentarios", action: () => renderComentarios() },
+    { text: "Intranet", action: () => renderLogin() },
     // { text: "Intranet", action: () =>renderVisitantes() },
   ];
 
@@ -73,19 +78,14 @@ logo.appendChild(img);
   banner.classList.add("banner");
 
 
-  const span = document.createElement("span");
-  span.textContent = "Photo";
-
-
-  banner.appendChild(span);
   main.appendChild(banner);
 
-//   const footer = document.createElement("footer");
-//   footer.textContent = "FOOTER";
+  //   const footer = document.createElement("footer");
+  //   footer.textContent = "FOOTER";
 
   homeView.appendChild(header);
   homeView.appendChild(main);
-//   homeView.appendChild(footer);
+  //   homeView.appendChild(footer);
   root.appendChild(homeView);
 }
 

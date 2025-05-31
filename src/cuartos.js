@@ -1,6 +1,6 @@
-import jsyaml from 'js-yaml';
+import jsyaml from "js-yaml";
 import "./cuartos.css";
-import { renderHome } from "./index.js";
+import { renderHeader } from "./header.js";
 
 export async function renderCuartos() {
   const root = document.getElementById("root");
@@ -12,20 +12,20 @@ export async function renderCuartos() {
   const container = document.createElement("div");
   container.classList.add("view-container");
 
+  // const header = document.createElement("header");
 
-    const header = document.createElement("header");
+  renderHeader({
+    title: "Lista de Cuartos",
+    backButton: {
+      label: "← Volver al Home",
+      action: () => {
+        import("./index.js")
+          .then((module) => module.renderHome())
+          .catch((err) => console.error("Error cargando home:", err));
+      },
+    },
+  });
 
-  const backBtn = document.createElement("button");
-  backBtn.textContent = "← Regresar al inicio";
-  backBtn.addEventListener("click", () => renderHome());
-
-
-  
-
-  // Título
-  const title = document.createElement("h2");
-  title.classList.add("view-title");
-  title.textContent = "Lista de Cuartos";
   // Form filtros
   const form = document.createElement("div");
   form.classList.add("filter-form");
@@ -51,68 +51,63 @@ export async function renderCuartos() {
   `;
   form.append(selectCama, selectHuespedes, selectBalcon);
 
-  header.appendChild(backBtn);
+  const divForm = document.createElement("div");
+  divForm.classList.add("divForm");
 
-  
-  header.appendChild(form);
-  
-  header.appendChild(title);
-
-
-
+  divForm.appendChild(form);
 
   // Grid para habitaciones
   const datagrid = document.createElement("div");
   datagrid.classList.add("datagrid");
 
-
   // container.append(header, datagrid);
-    root.appendChild(header);
+  // root.appendChild(header);
+  root.appendChild(divForm);
   root.appendChild(datagrid);
 
   // Carga de archivo YAML
   try {
-    const response = await fetch('/cuartos.yaml'); 
+    const response = await fetch("/cuartos.yaml");
     const text = await response.text();
     const rooms = jsyaml.load(text);
 
     // filtrar y mostrar
     const displayRooms = () => {
-      datagrid.innerHTML = '';
+      datagrid.innerHTML = "";
       const tipo = selectCama.value;
       const maxH = selectHuespedes.value;
       const balcon = selectBalcon.value;
 
-      rooms.forEach(room => {
+      rooms.forEach((room) => {
         if (tipo && room.cama !== tipo) return;
         if (maxH) {
           const cap = room.huespedes;
-          if (maxH === '3+' ? cap < 3 : cap !== Number(maxH)) return;
+          if (maxH === "3+" ? cap < 3 : cap !== Number(maxH)) return;
         }
-        if (balcon && (room.balcon ? 'sí' : 'no') !== balcon) return;
+        if (balcon && (room.balcon ? "sí" : "no") !== balcon) return;
 
-        const card = document.createElement('div');
-        card.classList.add('room-card');
+        const card = document.createElement("div");
+        card.classList.add("room-card");
         card.innerHTML = `
           <img src="${room.image}" alt="Cuarto ${room.numero}">
           <h4>Cuarto ${room.numero}</h4>
           <p>Cama: ${room.cama}</p>
-          <p>Huéspedes: ${room.huespedes}</p>
-          <p>Balcón: ${room.balcon ? 'Sí' : 'No'}</p>
+          <p>Huspedes: ${room.huespedes}</p>
+          <p>Balcón: ${room.balcon ? "Sí" : "No"}</p>
         `;
         datagrid.appendChild(card);
       });
     };
 
     // evento change
-    selectCama.addEventListener('change', displayRooms);
-    selectHuespedes.addEventListener('change', displayRooms);
-    selectBalcon.addEventListener('change', displayRooms);
+    selectCama.addEventListener("change", displayRooms);
+    selectHuespedes.addEventListener("change", displayRooms);
+    selectBalcon.addEventListener("change", displayRooms);
 
-  
     displayRooms();
   } catch (err) {
-    console.error('Error cargando cuartos YAML:', err);
-    datagrid.innerHTML = '<p class="error">No se pudieron cargar los cuartos.</p>';
+    console.error("Error cargando cuartos YAML:", err);
+    datagrid.innerHTML =
+      '<p class="error">No se pudieron cargar los cuartos.</p>';
   }
 }

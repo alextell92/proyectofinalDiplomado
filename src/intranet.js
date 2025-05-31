@@ -1,5 +1,5 @@
-import { renderHome } from "./index.js";          
-import { renderVisitantes } from "./visitantes.js"; 
+import { renderHome } from "./index.js";
+import { renderVisitantes } from "./visitantes.js";
 import { renderComentarios } from "./comentarios.js";
 import "./intranet.css";
 export function renderIntranet() {
@@ -7,44 +7,47 @@ export function renderIntranet() {
   if (!root) return;
   root.innerHTML = "";
 
-  // Inyectar estilos
-  const style = document.createElement("style");
-  style.textContent = `
+  const header = document.createElement("header");
 
-  `;
-  document.head.appendChild(style);
-
- 
-  const title = document.createElement("div");
-  title.classList.add("view-title");
-  title.textContent = "<<view>> intranetView";
+  const h1 = document.createElement("h1");
+  h1.textContent = "Intranet";
 
   // Panel de navegaci
   const navPanel = document.createElement("div");
   navPanel.classList.add("nav-panel");
 
-  const btnVisitantes = document.createElement("button");
-  btnVisitantes.textContent = "Visitantes";
-  btnVisitantes.addEventListener("click", () => {
-    contentArea.textContent = "Panel de Visitantes";
-  
+  const nav = document.createElement("nav");
+  const ul = document.createElement("ul");
+
+  const menuItems = [
+    { text: "Visitantes", action: () => renderVisitantes() },
+    { text: "Comentarios", action: () => renderComentarios() },
+  ];
+
+  menuItems.forEach(({ text, action }) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = "#";
+    a.textContent = text;
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      action();
+    });
+    li.appendChild(a);
+    ul.appendChild(li);
   });
 
-  const btnComentarios = document.createElement("button");
-  btnComentarios.textContent = "Comentarios";
-  btnComentarios.addEventListener("click", () => {
-    contentArea.textContent = "Panel de Comentarios";
-   
-  });
+  nav.appendChild(ul);
 
-  navPanel.appendChild(btnVisitantes);
-  navPanel.appendChild(btnComentarios);
+  header.appendChild(nav);
+
+  header.appendChild(h1);
 
   // de contenido
   const contentArea = document.createElement("div");
   contentArea.id = "contentArea";
   contentArea.classList.add("content-area");
-  contentArea.textContent = "contentArea: <<widget>> Panel";
+  contentArea.textContent = "Panel";
 
   // Cerrar sesion
   const logoutBtn = document.createElement("button");
@@ -54,8 +57,11 @@ export function renderIntranet() {
     renderHome();
   });
 
-  root.appendChild(title);
-  root.appendChild(navPanel);
-  root.appendChild(contentArea);
-  root.appendChild(logoutBtn);
+  header.appendChild(logoutBtn);
+  // root.appendChild(title);
+  // root.appendChild(navPanel);
+
+  root.appendChild(header);
+  // root.appendChild(contentArea);
+  // root.appendChild(logoutBtn);
 }

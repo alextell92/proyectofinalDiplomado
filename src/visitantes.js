@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 import "./visitantes.css";
-import { renderHome } from "./index.js"; 
+import { renderHeader } from "./header.js";
 
-const API_BASE = 'https://jsonplaceholder.typicode.com';
-const LIMIT = 20; 
+const API_BASE = "https://jsonplaceholder.typicode.com";
+const LIMIT = 50;
 
 export async function renderVisitantes() {
   const root = document.getElementById("root");
@@ -14,10 +14,19 @@ export async function renderVisitantes() {
   const container = document.createElement("div");
   container.classList.add("visitantes-container");
 
-  // encabezado titulo
-  const title = document.createElement("h2");
-  title.classList.add("visitantes-title");
-  title.textContent = "Visitantes Registrados";
+  // const header = document.createElement("header");
+
+  renderHeader({
+    title: "Visitantes Registrados",
+    backButton: {
+      label: "← Volver a intranet",
+      action: () => {
+        import("./intranet.js")
+          .then((module) => module.renderIntranet())
+          .catch((err) => console.error("Error cargando home:", err));
+      },
+    },
+  });
 
   // Tabla
   const tableWrapper = document.createElement("div");
@@ -29,7 +38,7 @@ export async function renderVisitantes() {
   // Encabezado
   const thead = document.createElement("thead");
   const headerRow = document.createElement("tr");
-  ["ID", "Nombre", "Usuario", "Email", "Ciudad"].forEach(text => {
+  ["ID", "Nombre", "Usuario", "Email", "Ciudad"].forEach((text) => {
     const th = document.createElement("th");
     th.textContent = text;
     headerRow.appendChild(th);
@@ -41,23 +50,16 @@ export async function renderVisitantes() {
   const tbody = document.createElement("tbody");
   const loadingRow = document.createElement("tr");
   const loadingTd = document.createElement("td");
-  loadingTd.setAttribute('colspan', '5');
+  loadingTd.setAttribute("colspan", "5");
   loadingTd.textContent = "Cargando visitantes...";
-  loadingTd.classList.add('loading');
+  loadingTd.classList.add("loading");
   loadingRow.appendChild(loadingTd);
   tbody.appendChild(loadingRow);
   table.appendChild(tbody);
   tableWrapper.appendChild(table);
 
-  // btn para regresar
-  const backButton = document.createElement("button");
-  backButton.textContent = "← Regresar al inicio";
-  backButton.classList.add("back-button");
-  backButton.addEventListener("click", () => {
-    renderHome();
-  });
-
-  container.append(title, tableWrapper, backButton);
+  container.append(tableWrapper);
+  // root.appendChild(header);
   root.appendChild(container);
 
   // API personas
@@ -65,13 +67,12 @@ export async function renderVisitantes() {
     const { data } = await axios.get(`${API_BASE}/users`);
     const users = data.slice(0, LIMIT);
 
-    
-    tbody.innerHTML = '';
+    tbody.innerHTML = "";
 
-    users.forEach(user => {
+    users.forEach((user) => {
       const row = document.createElement("tr");
       const { id, name, username, email, address } = user;
-      [id, name, username, email, address.city].forEach(value => {
+      [id, name, username, email, address.city].forEach((value) => {
         const td = document.createElement("td");
         td.textContent = value;
         row.appendChild(td);
@@ -79,13 +80,13 @@ export async function renderVisitantes() {
       tbody.appendChild(row);
     });
   } catch (error) {
-    console.error('Error al cargar visitantes:', error);
-    tbody.innerHTML = '';
-    const errRow = document.createElement('tr');
-    const errTd = document.createElement('td');
-    errTd.setAttribute('colspan', '5');
-    errTd.textContent = 'No se pudieron cargar los visitantes.';
-    errTd.classList.add('error');
+    console.error("Error al cargar visitantes:", error);
+    tbody.innerHTML = "";
+    const errRow = document.createElement("tr");
+    const errTd = document.createElement("td");
+    errTd.setAttribute("colspan", "5");
+    errTd.textContent = "No se pudieron cargar los visitantes.";
+    errTd.classList.add("error");
     errRow.appendChild(errTd);
     tbody.appendChild(errRow);
   }

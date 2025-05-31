@@ -1,17 +1,15 @@
-   
 .visitantes-container {
   max-width: 960px;
   margin: 2rem auto;
   padding: 0 1rem;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 /* titulo de la vista */
 .visitantes-title {
+  font-weight: bold;
   text-align: center;
-  font-size: 1.4rem;
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
+  margin-bottom: 25px;
 }
 
 .table-wrapper {
@@ -23,7 +21,7 @@
   width: 100%;
   border-collapse: collapse;
   background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Encabezados */
@@ -57,8 +55,6 @@
   }
 }
 
-
-
 /* Aqui comienza */
 
 .visitantes-container {
@@ -89,7 +85,13 @@
   text-align: center;
   color: red;
 }
+
 .back-button {
+  text-align: center;
+  margin-top: 20px;
+}
+.back-button button {
+  padding: 8px 16px;
+  font-size: 14px;
   cursor: pointer;
-  padding: 0.5rem 1rem;
 }

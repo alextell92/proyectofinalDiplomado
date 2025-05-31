@@ -1,7 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 import "./clima.css";
 
-const API_KEY = 'c27c93ab9dbe74ae2c2173d3b80ba1c7'; 
+import { renderHeader } from "./header.js";
+
+const API_KEY = "c27c93ab9dbe74ae2c2173d3b80ba1c7";
 
 export function renderClima() {
   const root = document.getElementById("root");
@@ -13,47 +15,48 @@ export function renderClima() {
   const climaView = document.createElement("div");
   climaView.classList.add("clima-view");
 
-   
+  // Header
+  // const header = document.createElement("header");
 
-  // Header 
-  const header = document.createElement("header");
-  const backBtn = document.createElement("button");
-  const h1 = document.createElement("h1");
-  h1.textContent = "Clima de Hoy";
-
-  backBtn.textContent = "← Volver al Home";
-  backBtn.addEventListener("click", () => {
-    import("./index.js").then(module => module.renderHome());
+  renderHeader({
+    title: "El Clima de Hoy",
+    backButton: {
+      label: "← Volver al Home",
+      action: () => {
+        import("./index.js")
+          .then((module) => module.renderHome())
+          .catch((err) => console.error("Error cargando home:", err));
+      },
+    },
   });
-  header.appendChild(backBtn);
-  header.appendChild(h1);
+
   // ciudad
-  const cityLabel = document.createElement('label');
-  cityLabel.textContent = 'Ciudad: ';
-  const cityInput = document.createElement('input');
-  cityInput.type = 'text';
-  cityInput.placeholder = 'Guanajuato'; 
-  cityInput.value = 'Guanajuato'; 
+  const cityLabel = document.createElement("label");
+  cityLabel.textContent = "Ciudad: ";
+  const cityInput = document.createElement("input");
+  cityInput.type = "text";
+  cityInput.placeholder = "Guanajuato";
+  cityInput.value = "Guanajuato";
 
-  const getBtn = document.createElement('button');
-  getBtn.textContent = 'Obtener Clima';
-  getBtn.addEventListener('click', () => loadClima(cityInput.value));
+  const getBtn = document.createElement("button");
+  getBtn.textContent = "Obtener Clima";
+  getBtn.addEventListener("click", () => loadClima(cityInput.value));
 
-  const controls = document.createElement('div');
-  controls.classList.add('clima-controls');
+  const controls = document.createElement("div");
+  controls.classList.add("clima-controls");
   controls.append(cityLabel, cityInput, getBtn);
 
   // Contenedor principal
-  const main = document.createElement('main');
+  const main = document.createElement("main");
 
   main.append(controls);
 
   // Contenedor de resultados
-  const resultContainer = document.createElement('div');
-  resultContainer.classList.add('clima-result');
+  const resultContainer = document.createElement("div");
+  resultContainer.classList.add("clima-result");
   main.appendChild(resultContainer);
 
-  climaView.append(header, main);
+  climaView.append(main);
   root.appendChild(climaView);
 
   // Carga inicial
@@ -61,25 +64,12 @@ export function renderClima() {
 }
 
 async function loadClima(city) {
-  const container = document.querySelector('.clima-result');
-  container.innerHTML = '<p>Cargando clima...</p>';
+  const container = document.querySelector(".clima-result");
+  container.innerHTML = "<p>Cargando clima...</p>";
 
   try {
-   
-    //   q: city,
-    //   appid: API_KEY,
-    //   units: 'metric',
-    //   lang: 'es'
-    // });
-
-    // console.log(params);
-    
-
-    // const url = `${API_BASE}?${params.toString()}`;
-   
-    const url =`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`;
     const { data } = await axios.get(url);
-
 
     // Parseo de respuesta
     const nombre = data.name;
@@ -93,12 +83,15 @@ async function loadClima(city) {
     container.innerHTML = `
       <p><strong>Ciudad:</strong> ${nombre}</p>
       <p><strong>Tiempo:</strong> ${descripcion}</p>
-      <p><strong>Temperatura:</strong> ${temp.toFixed(1)}°C (min ${tempMin.toFixed(1)}°C / max ${tempMax.toFixed(1)}°C)</p>
+      <p><strong>Temperatura:</strong> ${temp.toFixed(
+        1
+      )}°C (min ${tempMin.toFixed(1)}°C / max ${tempMax.toFixed(1)}°C)</p>
       <p><strong>Humedad:</strong> ${humedad}%</p>
       <p><strong>Viento:</strong> ${viento} m/s</p>
     `;
   } catch (error) {
-    console.error('Error al cargar clima:', error);
-    container.innerHTML = '<p class="error">No se pudo obtener el clima.Revisa la ciudad</p>';
+    console.error("Error al cargar clima:", error);
+    container.innerHTML =
+      '<p class="error">No se pudo obtener el clima.Revisa la ciudad</p>';
   }
 }

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { renderHome } from "./index.js";
+import { renderHeader } from "./header.js";
 import "./bebidas.css";
 
 const API_BASE = "https://www.thecocktaildb.com/api/json/v1/1";
-const LIMIT = 20;
+const LIMIT = 50;
 
 export async function renderBebidasCategoria() {
   const root = document.getElementById("root");
@@ -11,35 +12,24 @@ export async function renderBebidasCategoria() {
 
   root.innerHTML = "";
 
-  // // Título de la vista
-  // const title = document.createElement("div");
-  // title.classList.add("view-title");
-  // title.textContent = "Bebidas";
+
 
   // el Bar
-  const widgetLabel = document.createElement("div");
-  widgetLabel.classList.add("widget-label");
   const h1 = document.createElement("h1");
   h1.textContent = "El Bar (Bebidas)";
-  // widgetLabel.textContent = "El Bar (Bebidas)";
 
-  // // Barra superioor con botones tambien filtros
-  // const topBar = document.createElement("div");
-  // topBar.classList.add("top-bar");
-  // const backBtn = document.createElement("button");
-  // backBtn.innerHTML = "← Volver";
-  // backBtn.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  //   renderHome();
-  // });
 
-  const header = document.createElement("header");
-  const backBtn = document.createElement("button");
-  backBtn.textContent = "← Volver al Home";
-  backBtn.addEventListener("click", () => {
-    import("./index.js").then((module) => module.renderHome());
+  renderHeader({
+    title: "El Bar (Bebidas)",
+    backButton: {
+      label: "← Volver al Home",
+      action: () => {
+        import("./index.js")
+          .then((module) => module.renderHome())
+          .catch((err) => console.error("Error cargando home:", err));
+      },
+    },
   });
-  header.appendChild(backBtn);
 
   const filterSelect = document.createElement("select");
   filterSelect.innerHTML = `
@@ -48,19 +38,20 @@ export async function renderBebidasCategoria() {
     <option value="filter.php?a=Alcoholic">Con Alcohol</option>
   `;
 
-  header.appendChild(backBtn);
-  header.appendChild(filterSelect);
-  header.appendChild(h1);
+
 
   // Contenedor de tarjetas de cada una de las bebidasa
   const cardContainer = document.createElement("div");
   cardContainer.classList.add("card-container");
 
-  // agrego cada elemento a la raiz para que se muestre e pantalla.
-  // root.appendChild(title);
 
-  root.appendChild(header);
-  root.appendChild(widgetLabel);
+
+  const filterContenedor = document.createElement("div");
+  filterContenedor.classList.add("contenedorFiltro");
+
+  filterContenedor.appendChild(filterSelect);
+
+  root.appendChild(filterContenedor);
   root.appendChild(cardContainer);
 
   // Carga inicial de bebidas y al cambiar filtro
@@ -107,26 +98,26 @@ async function renderDetalleBebida(id) {
   const root = document.getElementById("root");
   root.innerHTML = "";
 
-  //   const contenedor = document.createElement('div');
-  //   contenedor.classList.add('contenedor')
-  //  para regresar al listado
-  const backBtn = document.createElement("button");
-  backBtn.textContent = "← Volver a listado";
-  backBtn.addEventListener("click", renderBebidasCategoria);
-  backBtn.style.margin = "1rem 0";
-
   const detalleContainer = document.createElement("div");
   detalleContainer.classList.add("detalle-bebida");
 
   const h1 = document.createElement("h1");
   h1.textContent = "Preparacion e ingredientes";
 
-  const header = document.createElement("header");
 
-  header.appendChild(backBtn);
 
-  header.appendChild(h1);
-  root.appendChild(header);
+  renderHeader({
+    title: "Preparacion e ingredientes",
+    backButton: {
+      label: "← Volver a bebidas",
+      action: () => {
+        import("./bebidas.js")
+          .then((module) => module.renderBebidasCategoria())
+          .catch((err) => console.error("Error cargando home:", err));
+      },
+    },
+  });
+
   root.appendChild(detalleContainer);
 
   try {
@@ -143,9 +134,14 @@ async function renderDetalleBebida(id) {
     img.classList.add("imagenDetalle");
 
     // Instrucciones
+
+    const divInstrucciones = document.createElement("div");
+    divInstrucciones.classList.add("divInstrucciones");
+
     const instr = document.createElement("p");
     instr.innerHTML = `<strong>Preparación:</strong> ${drink.strInstructions}`;
 
+    divInstrucciones.appendChild(instr);
     // Lista de ingredientes
     const ul = document.createElement("ul");
     ul.classList.add("listaIngresdientes");
@@ -158,11 +154,12 @@ async function renderDetalleBebida(id) {
         ul.appendChild(li);
       }
     }
+    divInstrucciones.appendChild(ul);
 
     detalleContainer.appendChild(title);
     detalleContainer.appendChild(img);
-    detalleContainer.appendChild(instr);
-    detalleContainer.appendChild(ul);
+    detalleContainer.appendChild(divInstrucciones);
+    // detalleContainer.appendChild(ul);
 
     //    contenedor.appendChild(detalleContainer);
   } catch (error) {
